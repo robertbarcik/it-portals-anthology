@@ -2,8 +2,7 @@
 // - First call awaits a key (from localStorage, or via a modal).
 // - getApiKey() returns Promise<string>.
 // - resetApiKey() clears storage; useful for "change key" UI.
-// - window.DEMO_KEY (set by an optional, .gitignored shared/demo-key.js)
-//   becomes a "Use demo key" button in the modal.
+// The user must provide their own key. No demo/default key is bundled.
 
 (function () {
   const STORAGE_KEY = 'openrouter_key_v1';
@@ -84,18 +83,16 @@
     return new Promise((resolve) => {
       const backdrop = document.createElement('div');
       backdrop.className = 'apikey-backdrop';
-      const hasDemo = typeof window.DEMO_KEY === 'string' && window.DEMO_KEY.length > 0;
       backdrop.innerHTML = `
         <div class="apikey-card" role="dialog" aria-modal="true" aria-labelledby="apikey-title">
           <h2 id="apikey-title">An OpenRouter API key, please.</h2>
           <p>This prototype calls a cheap Qwen model directly from your browser. Paste your own
              <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OpenRouter key</a>
-             — it's stored in <em>your</em> browser only.${hasDemo ? '' : ''}</p>
+             — it's stored in <em>your</em> browser only.</p>
           <input id="apikey-input" type="password" autocomplete="off" spellcheck="false"
                  placeholder="sk-or-v1-..." />
           <div class="apikey-row">
             <button class="apikey-btn" id="apikey-save">Save & continue</button>
-            ${hasDemo ? '<button class="apikey-btn ghost" id="apikey-demo">Use demo key</button>' : ''}
           </div>
           <div class="apikey-err" id="apikey-err"></div>
           <div class="apikey-note">
@@ -108,7 +105,6 @@
       const input = backdrop.querySelector('#apikey-input');
       const err = backdrop.querySelector('#apikey-err');
       const save = backdrop.querySelector('#apikey-save');
-      const demo = backdrop.querySelector('#apikey-demo');
 
       setTimeout(() => input.focus(), 60);
 
@@ -127,7 +123,6 @@
       }
       save.addEventListener('click', trySave);
       input.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySave(); });
-      if (demo) demo.addEventListener('click', () => done(window.DEMO_KEY));
     });
   }
 

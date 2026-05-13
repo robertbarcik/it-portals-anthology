@@ -18,7 +18,7 @@ Live: https://publications.barcik.training/it-portals-anthology/
 
 Vanilla HTML/CSS/JS. No framework, no build step. Each prototype is a self-contained folder.
 
-Backend: a cheap Qwen model on [OpenRouter](https://openrouter.ai), called directly from the browser. The first time you interact, the page asks for an OpenRouter API key, stored in `localStorage` (your browser only). On the public deploy, a `Use demo key` button is available.
+Backend: a cheap Qwen model on [OpenRouter](https://openrouter.ai), called directly from the browser. The first time you interact, the page asks for an OpenRouter API key, stored in `localStorage` (your browser only). You'll need to bring your own — there is no shared demo key.
 
 ## Run locally
 
