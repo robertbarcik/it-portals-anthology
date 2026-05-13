@@ -1,0 +1,186 @@
+:root {
+  --bg: #050b06;
+  --phos: #6cffb5;
+  --phos-dim: #2c9466;
+  --phos-deep: #0e3a25;
+  --amber: #ffb340;
+  --red: #ff5a48;
+  --grid: #0c1a12;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; height: 100%;
+  background:
+    radial-gradient(ellipse at 50% 30%, #0a1610 0%, #03070a 70%, #000 100%);
+  font-family: 'VT323', ui-monospace, monospace;
+  color: var(--phos);
+  overflow: hidden;
+}
+
+.back-link {
+  position: fixed; top: 14px; left: 16px; z-index: 50;
+  font: 22px/1 'VT323', monospace;
+  color: var(--phos-dim); text-decoration: none;
+  letter-spacing: .05em;
+  text-shadow: 0 0 6px rgba(108,255,181,.35);
+}
+.back-link:hover { color: var(--phos); }
+
+/* Bezel = the physical "monitor". */
+.bezel {
+  position: fixed; inset: 28px;
+  background:
+    linear-gradient(180deg, #1a1410 0%, #0c0907 100%);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow:
+    inset 0 0 0 2px #2a221c,
+    inset 0 0 60px rgba(0,0,0,.85),
+    0 30px 80px rgba(0,0,0,.6);
+}
+.bezel::before {
+  /* tiny brand plate */
+  content: "■ BELL LABS — CRT/9k";
+  position: absolute; bottom: 6px; right: 18px;
+  font-size: 12px; color: #5a4a3c; letter-spacing: .12em;
+}
+
+/* Screen = the glowing area. */
+.screen {
+  position: relative; height: 100%;
+  background:
+    radial-gradient(ellipse at center, #06140d 0%, #030a06 70%, #010402 100%);
+  border-radius: 14px;
+  padding: 14px 16px 12px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  filter: drop-shadow(0 0 24px rgba(60,180,120,.18));
+  text-shadow: 0 0 4px rgba(108,255,181,.5), 0 0 14px rgba(108,255,181,.22);
+  /* subtle barrel curvature illusion */
+}
+
+.scanlines {
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,.18) 3px,
+    rgba(0,0,0,0) 4px
+  );
+  mix-blend-mode: multiply;
+  animation: scanjitter 7s linear infinite;
+}
+@keyframes scanjitter {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(1px); }
+}
+.vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
+}
+
+.hdr {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--phos-deep);
+  padding-bottom: 6px; margin-bottom: 8px;
+  font-size: 20px; letter-spacing: .04em;
+}
+.hdr-l { display: flex; align-items: center; gap: 10px; }
+.led {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 8px var(--amber), 0 0 18px var(--amber);
+  animation: blink 1.4s infinite;
+}
+@keyframes blink { 50% { opacity: .35; } }
+
+.grid {
+  flex: 1; min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 14px;
+}
+
+.term {
+  display: flex; flex-direction: column;
+  min-height: 0;
+  font-size: 22px; line-height: 1.2;
+  padding: 4px 6px;
+  overflow: hidden;
+}
+
+.boot, .log { white-space: pre-wrap; word-break: break-word; }
+.log { flex: 1; overflow-y: auto; padding-right: 8px; }
+
+.log::-webkit-scrollbar { width: 8px; }
+.log::-webkit-scrollbar-thumb { background: var(--phos-deep); border-radius: 4px; }
+
+.line { margin: 1px 0; }
+.line.usr { color: var(--phos); }
+.line.usr::before { content: "SYSOP@VAX9000:~$ "; color: var(--phos-dim); }
+.line.sys { color: var(--phos); }
+.line.sys::before { content: "> "; color: var(--phos-dim); }
+.line.warn { color: var(--amber); text-shadow: 0 0 4px rgba(255,179,64,.5); }
+.line.err  { color: var(--red); text-shadow: 0 0 6px rgba(255,90,72,.5); }
+.line.dim  { color: var(--phos-dim); }
+
+.prompt-row { display: flex; align-items: baseline; padding-top: 6px; }
+.ps1 { color: var(--phos-dim); }
+.input-wrap { position: relative; flex: 1; display: inline-flex; align-items: baseline; }
+#cmd {
+  flex: 1; font: inherit; color: var(--phos); background: transparent;
+  border: 0; outline: 0; padding: 0; caret-color: transparent;
+}
+.caret {
+  display: inline-block; width: 12px; height: 22px;
+  background: var(--phos);
+  margin-left: 2px;
+  box-shadow: 0 0 8px var(--phos);
+  animation: caret 1.05s steps(2, start) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* Kernel log sidebar */
+.kern {
+  border-left: 1px solid var(--phos-deep);
+  padding-left: 12px;
+  display: flex; flex-direction: column;
+  min-height: 0;
+  color: var(--phos-dim);
+  font-size: 16px;
+}
+.kern-hdr {
+  letter-spacing: .1em;
+  font-family: 'Major Mono Display', 'VT323', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--amber);
+  text-shadow: 0 0 6px rgba(255,179,64,.45);
+}
+.kern-stream {
+  flex: 1; overflow: hidden; line-height: 1.25;
+  position: relative;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+.kern-stream div { padding: 1px 0; }
+.kern-stream .ok { color: var(--phos-dim); }
+.kern-stream .warn { color: var(--amber); }
+.kern-stream .err { color: var(--red); }
+
+.ftr {
+  border-top: 1px solid var(--phos-deep);
+  padding-top: 6px; margin-top: 8px;
+  font-size: 16px; color: var(--phos-dim);
+  display: flex; justify-content: space-between;
+  letter-spacing: .06em;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+  .kern { display: none; }
+  .bezel { inset: 10px; padding: 14px; }
+}

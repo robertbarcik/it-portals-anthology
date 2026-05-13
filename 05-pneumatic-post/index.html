@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pneumatic Post — Department of Subterranean Communications</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a class="back-link" href="../">← anthology</a>
+
+<!-- The piping along the edges -->
+<div class="pipe pipe-top">
+  <div class="pipe-joint" style="left: 18%"></div>
+  <div class="pipe-joint" style="left: 50%"></div>
+  <div class="pipe-joint" style="left: 82%"></div>
+</div>
+<div class="pipe pipe-right">
+  <div class="pipe-joint v" style="top: 30%"></div>
+  <div class="pipe-joint v" style="top: 70%"></div>
+  <div class="pressure-dial">
+    <div class="dial-face">
+      <div class="dial-tick t1"></div>
+      <div class="dial-tick t2"></div>
+      <div class="dial-tick t3"></div>
+      <div class="dial-needle" id="needle"></div>
+      <div class="dial-cap"></div>
+    </div>
+    <div class="dial-label">PSI · ATM</div>
+  </div>
+</div>
+<div class="pipe pipe-bottom">
+  <div class="pipe-joint" style="left: 25%"></div>
+  <div class="pipe-joint" style="left: 75%"></div>
+</div>
+<div class="pipe pipe-left">
+  <div class="pipe-joint v" style="top: 25%"></div>
+  <div class="pipe-joint v" style="top: 60%"></div>
+</div>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<!-- The travelling capsule -->
+<div class="capsule" id="capsule" hidden>
+  <div class="capsule-cap top"></div>
+  <div class="capsule-body">
+    <span class="cap-stamp">№ <span id="capNum">0017</span></span>
+  </div>
+  <div class="capsule-cap bot"></div>
+</div>
+
+<main class="console">
+
+  <header class="brand">
+    <div class="brand-rule"></div>
+    <div class="brand-line">Department of Subterranean Communications · est. 1873</div>
+    <h1>Pneumatic Postal Service</h1>
+    <div class="brand-sub">For the Conveyance of Technical Grievances by Compressed Air</div>
+    <div class="brand-rule"></div>
+  </header>
+
+  <section class="panels">
+
+    <div class="panel send-panel">
+      <div class="panel-stamp">ORIGIN · TELEGRAPH FORM</div>
+      <div class="telegram">
+        <div class="tg-head">
+          <span>То: BUREAU OF TECHNICAL ASSISTANCE</span>
+          <span>Form 6-B</span>
+        </div>
+        <textarea id="msg" rows="6"
+          placeholder="STATE THE NATURE OF THE TROUBLE — KEEP IT BRIEF, EACH WORD COSTETH A FARTHING — STOP"></textarea>
+        <div class="tg-foot">
+          <input id="from" type="text" placeholder="FROM: A SUBSCRIBER OF BRATISLAVA" />
+          <button type="button" id="send">
+            <span class="lever"></span>
+            <span class="send-label">DESPATCH</span>
+          </button>
+        </div>
+      </div>
+      <div class="panel-meta">
+        <span>Tube №&nbsp;7 — Eastern Sector</span>
+        <span id="status">IDLE</span>
+      </div>
+    </div>
+
+    <div class="panel recv-panel">
+      <div class="panel-stamp recv-stamp">RECEPTION · INCOMING CAPSULES</div>
+      <div id="receipts" class="receipts">
+        <div class="receipt empty">
+          <p class="empty-note">No capsules have arrived in the past minute.<br>
+             The pneumatic ducts await your message.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="page-foot">
+    <span>Set in IM Fell English &amp; Spectral.</span>
+    <a href="#" id="newkey">change key</a>
+  </footer>
+
+</main>
+
+<script src="../shared/demo-key.js" onerror="void 0"></script>
+<script src="../shared/apikey.js"></script>
+<script src="../shared/llm.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

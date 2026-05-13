@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Support Reef — a calmer place for technical troubles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a class="back-link" href="../">← anthology</a>
+
+<canvas id="reef"></canvas>
+
+<div class="caustics" aria-hidden="true"></div>
+
+<div class="ui">
+
+  <header class="reef-head">
+    <div class="reef-title">
+      <h1>Support Reef</h1>
+      <p>a calmer place for technical troubles</p>
+    </div>
+    <div class="reef-stats">
+      <span><em id="ticketsOpen">0</em> in the reef</span>
+      <span><em id="ticketsResolved">0</em> released</span>
+      <a href="#" id="newkey">change key</a>
+    </div>
+  </header>
+
+  <div class="speeches" id="speeches"></div>
+
+  <div class="composer">
+    <div class="composer-inner">
+      <label for="msg">tell the agent what's wrong</label>
+      <div class="composer-row">
+        <input id="msg" type="text" autocomplete="off" placeholder="my email is misbehaving · the wifi disappears at 3pm · …" />
+        <button id="send" type="button">
+          <span class="send-glyph">✦</span> send a fish
+        </button>
+      </div>
+      <p class="hint">each message becomes a small fish that swims to the agent.</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="../shared/demo-key.js" onerror="void 0"></script>
+<script src="../shared/apikey.js"></script>
+<script src="../shared/llm.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

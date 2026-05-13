@@ -1,0 +1,7 @@
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+
+# Demo API key — uploaded to the deployed bucket only, never to git.
+shared/demo-key.js

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Five Service Desks That Forgot They Were Software — an anthology</title>
+<meta name="description" content="Five wildly distinct low-fidelity prototypes for an IT services portal — same prompt, same cheap LLM, five completely different ideas about what a support interface could feel like.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f3eee5;
+  --paper-deep: #e9e2d2;
+  --ink: #1a1610;
+  --ink-soft: #4a4338;
+  --ink-fade: #7d745f;
+  --rule: #cabea0;
+  --red: #b3261e;
+  --gold: #a87f2a;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px; line-height: 1.55;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+  background:
+    radial-gradient(rgba(20,15,5,.06) 1px, transparent 1.3px) 0 0/3px 3px;
+  mix-blend-mode: multiply; opacity: .55;
+}
+
+.cabinet {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 36px 100px;
+}
+
+/* HEADER */
+.collection-tag {
+  display: inline-flex; gap: 8px; align-items: center;
+  font: 600 11px/1 'Inter', sans-serif;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 18px;
+}
+.collection-tag::before {
+  content: ""; width: 30px; height: 1px; background: var(--red);
+}
+h1.title {
+  font: 500 italic clamp(40px, 6vw, 76px)/1.05 'Fraunces', serif;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+}
+.sub {
+  font: 400 19px/1.55 'Fraunces', serif;
+  max-width: 720px;
+  color: var(--ink-soft);
+  margin: 0 0 36px;
+}
+.meta-row {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 18px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font: 500 12px/1.2 'Inter', sans-serif;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink);
+}
+.meta-row > div { display: flex; gap: 8px; align-items: baseline; }
+.meta-row em { font-style: normal; font-weight: 700; color: var(--red); }
+.meta-row .sep { color: var(--rule); }
+
+/* INTRO */
+.intro {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  margin: 48px 0 64px;
+}
+.intro-side {
+  font: 500 italic 13px/1.4 'Fraunces', serif;
+  color: var(--ink-fade); text-transform: uppercase; letter-spacing: .15em;
+}
+.intro-body p { margin: 0 0 14px; max-width: 60ch; }
+.intro-body p:first-letter {
+  font: 700 56px/0.85 'Fraunces', serif;
+  float: left; margin: 6px 8px 0 0;
+  color: var(--ink); font-style: italic;
+}
+@media (max-width: 760px) { .intro { grid-template-columns: 1fr; gap: 18px; } }
+
+/* SPECIMENS */
+.specimens {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 36px;
+}
+.specimens .specimen:nth-child(5) {
+  grid-column: 1 / -1;
+  max-width: 580px; margin: 0 auto;
+}
+@media (max-width: 760px) {
+  .specimens { grid-template-columns: 1fr; }
+  .specimens .specimen:nth-child(5) { max-width: none; }
+}
+
+.specimen {
+  position: relative;
+  background: var(--paper-deep);
+  border: 1px solid var(--ink);
+  padding: 24px 24px 22px;
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.specimen:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(20,15,5,.18);
+}
+.specimen-no {
+  position: absolute; top: -1px; right: -1px;
+  background: var(--ink); color: var(--paper);
+  font: 700 11px/1 'Inter', sans-serif;
+  letter-spacing: .15em;
+  padding: 8px 11px;
+}
+.specimen-no::before { content: "№ "; color: var(--gold); }
+.preview {
+  height: 200px;
+  margin-bottom: 18px;
+  border: 1px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+/* preview 01 — terminal */
+.preview.terminal {
+  background:
+    radial-gradient(ellipse at center, #0a1810 0%, #020604 100%);
+  font: 14px/1.2 ui-monospace, 'Courier New', monospace;
+  color: #6cffb5;
+  padding: 18px;
+  text-shadow: 0 0 4px rgba(108,255,181,.6);
+}
+.preview.terminal::after {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(to bottom,
+    transparent 0, transparent 2px, rgba(0,0,0,.25) 3px, transparent 4px);
+  mix-blend-mode: multiply; pointer-events: none;
+}
+.preview.terminal .line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.preview.terminal .dim { color: #2c9466; }
+.preview.terminal .blink { display: inline-block; width: 8px; height: 14px; background: #6cffb5; vertical-align: middle; margin-left: 2px; animation: bl 1s steps(2) infinite; }
+@keyframes bl { 50% { opacity: 0; } }
+
+/* preview 02 — tarot */
+.preview.tarot {
+  background:
+    radial-gradient(ellipse at 50% 100%, #2a0f3b 0%, #0c0413 80%);
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+}
+.preview.tarot .card {
+  width: 60px; height: 92px;
+  background: linear-gradient(180deg, #f3e6c1 0%, #e8d8a8 100%);
+  border: 2px solid #d5a445;
+  box-shadow: 0 0 0 1px #8a6a2a inset, 0 0 20px rgba(213,164,69,.3);
+  position: relative;
+  font: 700 9px/1 'Fraunces', serif;
+  letter-spacing: .15em;
+  text-align: center;
+  color: #1c1108;
+  padding: 8px 4px;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+}
+.preview.tarot .card .num { font-size: 9px; color: #8a6a2a; }
+.preview.tarot .card .sym { font-size: 28px; line-height: 1; color: #1c1108; }
+.preview.tarot .card .ttl { font-size: 8px; }
+.preview.tarot .card:nth-child(1) { transform: translateY(-6px) rotate(-6deg); }
+.preview.tarot .card:nth-child(2) { transform: translateY(-12px); z-index: 2; }
+.preview.tarot .card:nth-child(3) { transform: translateY(-6px) rotate(6deg); }
+
+/* preview 03 — gazette */
+.preview.gazette {
+  background: #f5ecd6;
+  padding: 14px;
+  color: #0a0805;
+  font-family: 'Fraunces', serif;
+  overflow: hidden;
+}
+.preview.gazette .masthead {
+  font: 700 22px/1 'Fraunces', serif;
+  text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 3px double #0a0805;
+  margin-bottom: 6px;
+}
+.preview.gazette .strap {
+  display: flex; justify-content: space-between;
+  font: 700 7px/1 'Inter', sans-serif;
+  letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.preview.gazette .cols { columns: 2; column-gap: 12px; font-size: 8px; line-height: 1.3; }
+.preview.gazette .cols b { display: block; font-size: 11px; }
+
+/* preview 04 — reef */
+.preview.reef {
+  background:
+    linear-gradient(180deg, #b9e8e0 0%, #6cbcb5 60%, #2e7f7e 100%);
+  position: relative;
+}
+.preview.reef::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30px;
+  background: linear-gradient(180deg, transparent, rgba(236,217,181,.95));
+}
+.preview.reef .fish {
+  position: absolute; width: 36px; height: 22px;
+  background: radial-gradient(ellipse at 30% 40%, #ffd089 0%, #ff8a7a 100%);
+  border-radius: 60% 30% 60% 30% / 80% 50% 80% 50%;
+}
+.preview.reef .fish::before {
+  content: ""; position: absolute; right: -8px; top: 6px; width: 0; height: 0;
+  border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+  border-left: 10px solid #ff8a7a;
+}
+.preview.reef .fish::after {
+  content: ""; position: absolute; left: 4px; top: 7px; width: 4px; height: 4px;
+  background: #fff; border-radius: 50%;
+  box-shadow: 0 0 0 1px #1c4f5a inset;
+}
+.preview.reef .f1 { top: 38%; left: 30%; }
+.preview.reef .f2 { top: 60%; left: 60%; transform: scaleX(-1); width: 24px; height: 16px; }
+.preview.reef .f3 { top: 25%; left: 70%; width: 20px; height: 14px; }
+.preview.reef .bub {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,.65);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.95);
+}
+.preview.reef .b1 { width: 6px; height: 6px; bottom: 50px; left: 20%; }
+.preview.reef .b2 { width: 4px; height: 4px; bottom: 80px; left: 40%; }
+.preview.reef .b3 { width: 8px; height: 8px; bottom: 110px; left: 75%; }
+
+/* preview 05 — pneumatic */
+.preview.pneumatic {
+  background:
+    radial-gradient(ellipse at 50% 0%, #4a3520 0%, #2a1f15 60%, #1c140d 100%);
+  position: relative;
+}
+.preview.pneumatic .pipe {
+  position: absolute; left: 0; right: 0;
+  background: linear-gradient(180deg, #f3c977 0%, #c89b48 35%, #6f4c1c 75%, #3a2a12 100%);
+}
+.preview.pneumatic .pipe-t { top: 0; height: 14px; }
+.preview.pneumatic .pipe-b { bottom: 0; height: 14px;
+  background: linear-gradient(0deg, #f3c977 0%, #c89b48 35%, #6f4c1c 75%, #3a2a12 100%);
+}
+.preview.pneumatic .pipe-l { top: 0; bottom: 0; left: 0; right: auto; width: 14px;
+  background: linear-gradient(90deg, #f3c977 0%, #c89b48 35%, #6f4c1c 75%, #3a2a12 100%);
+}
+.preview.pneumatic .pipe-r { top: 0; bottom: 0; right: 0; left: auto; width: 14px;
+  background: linear-gradient(270deg, #f3c977 0%, #c89b48 35%, #6f4c1c 75%, #3a2a12 100%);
+}
+.preview.pneumatic .telegram {
+  position: absolute; inset: 30px;
+  background: #efe2c2; color: #1a120a;
+  padding: 8px;
+  font: italic 400 11px/1.3 'Fraunces', serif;
+}
+.preview.pneumatic .telegram .stamp {
+  font: 700 6px/1 'Inter', sans-serif;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: #4f1f1a;
+}
+.preview.pneumatic .capsule {
+  position: absolute; right: 30px; top: 22px;
+  width: 14px; height: 36px;
+  background: linear-gradient(180deg, #f3c977, #6f4c1c);
+  border-radius: 8px 8px 4px 4px;
+  box-shadow: 0 0 0 1px #3a2a12 inset;
+  animation: zoom 2.4s ease-in-out infinite;
+}
+@keyframes zoom {
+  0%, 30% { transform: translate(0, 0); }
+  60%, 100% { transform: translate(-200px, 0) rotate(0deg); opacity: 0; }
+}
+
+/* SPECIMEN CONTENT */
+.spec-no { font: 600 11px/1 'Inter', sans-serif; letter-spacing: .18em; color: var(--red); text-transform: uppercase; margin-bottom: 6px; }
+.spec-title {
+  font: 600 italic 28px/1.1 'Fraunces', serif;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.spec-desc { color: var(--ink-soft); font-size: 14.5px; line-height: 1.5; margin: 0 0 14px; min-height: 64px; }
+.spec-aspects {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  font: 600 10px/1 'Inter', sans-serif;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-bottom: 12px;
+}
+.spec-aspects span {
+  border: 1px solid var(--rule);
+  padding: 5px 8px;
+}
+.spec-open {
+  margin-top: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 600 12px/1 'Inter', sans-serif;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink);
+  padding-top: 10px;
+  border-top: 1px solid var(--ink);
+}
+.specimen:hover .spec-open { color: var(--red); }
+.spec-open .arrow { transition: transform .2s ease; }
+.specimen:hover .spec-open .arrow { transform: translateX(4px); }
+
+/* COLOPHON */
+.colophon {
+  margin-top: 64px; padding-top: 18px;
+  border-top: 1px solid var(--ink);
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 24px;
+  font-size: 13px; color: var(--ink-soft); line-height: 1.5;
+}
+.colophon h3 {
+  font: 700 11px/1 'Inter', sans-serif;
+  letter-spacing: .2em; text-transform: uppercase;
+  margin: 0 0 8px; color: var(--ink);
+}
+.colophon a { color: var(--red); text-decoration: underline; }
+@media (max-width: 760px) { .colophon { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="cabinet">
+
+  <div class="collection-tag">A small anthology · in five exhibits</div>
+
+  <h1 class="title">Five Service Desks That Forgot They Were Software.</h1>
+
+  <p class="sub">
+    Five low-fidelity prototypes of an IT services portal. Same prompt, same cheap LLM at the
+    other end of the wire. Five completely different ideas about what a support interface could
+    feel like — none of them a chat box with a purple gradient.
+  </p>
+
+  <div class="meta-row">
+    <div><em>5</em> <span>exhibits</span></div>
+    <span class="sep">◆</span>
+    <div><em>1</em> <span>backend (qwen, on openrouter)</span></div>
+    <span class="sep">◆</span>
+    <div><em>0</em> <span>frameworks</span></div>
+    <span class="sep">◆</span>
+    <div><em>2026</em></div>
+  </div>
+
+  <section class="intro">
+    <div class="intro-side">— The Curator's Note</div>
+    <div class="intro-body">
+      <p>For the past few years every helpful interface has settled into the same shape:
+      a chat input, a list of bubbles, and a cheerful nothingness. This anthology is a small
+      protest against that flattening. Each of the five exhibits is a sketch of an IT services
+      portal — useful, low-fidelity, deliberately committed to one aesthetic and one interaction
+      pattern. None of them are products. All of them work.</p>
+      <p>Open them in any order. Each one wants your OpenRouter key on first use
+      and forgets it whenever you say.</p>
+    </div>
+  </section>
+
+  <section class="specimens">
+
+    <a class="specimen" href="01-terminal-zero/">
+      <div class="specimen-no">01</div>
+      <div class="preview terminal">
+        <div class="line dim">BELL LABS VAX-9000, rev. 3.2.1</div>
+        <div class="line dim">memory check ... 16384 KB OK</div>
+        <div class="line">&gt; sysop: hello, operator.</div>
+        <div class="line">&gt; type HELP, or describe</div>
+        <div class="line">&gt; what is wrong.</div>
+        <div class="line dim">SYSOP@VAX9000:~$<span class="blink"></span></div>
+      </div>
+      <div class="spec-no">Exhibit · Terminal</div>
+      <h2 class="spec-title">Terminal Zero</h2>
+      <p class="spec-desc">A phosphor service desk console, vintage 1983. Boot sequence, scanlines, a sidebar of deadpan kernel chatter, and a SYSOP at the other end of a serial cable.</p>
+      <div class="spec-aspects"><span>CRT · phosphor</span><span>command line</span><span>VT323</span></div>
+      <div class="spec-open">Open exhibit <span class="arrow">→</span></div>
+    </a>
+
+    <a class="specimen" href="02-it-oracle/">
+      <div class="specimen-no">02</div>
+      <div class="preview tarot">
+        <div class="card"><div class="num">I</div><div class="sym">⛧</div><div class="ttl">THE FOOL'S DHCP</div></div>
+        <div class="card"><div class="num">II</div><div class="sym">♅</div><div class="ttl">THE TANGLED ETHERNET</div></div>
+        <div class="card"><div class="num">III</div><div class="sym">⚯</div><div class="ttl">THE NINE OF DNS</div></div>
+      </div>
+      <div class="spec-no">Exhibit · Cartomancy</div>
+      <h2 class="spec-title">The IT Oracle</h2>
+      <p class="spec-desc">A tarot deck of fifteen IT afflictions. State your trouble; the cards are drawn; the Oracle reads them. The diagnosis arrives dressed as prophecy and is, despite itself, useful.</p>
+      <div class="spec-aspects"><span>tarot · ritual</span><span>card flip</span><span>cormorant</span></div>
+      <div class="spec-open">Open exhibit <span class="arrow">→</span></div>
+    </a>
+
+    <a class="specimen" href="03-gazette/">
+      <div class="specimen-no">03</div>
+      <div class="preview gazette">
+        <div class="strap"><span>VOL. CCXLII</span><span>TWO PENCE</span><span>TUESDAY</span></div>
+        <div class="masthead">The Gazette of Glitches</div>
+        <div class="cols">
+          <p><b>To Our Dear Reader</b> A new edition is forthcoming, the Editor sits as ever at the great oak desk and the postbox is open.</p>
+          <p><b>Letter From R. of Bratislava</b> Dear Sir, my printer has lost faith in UDP and refuses politely to participate any further…</p>
+        </div>
+      </div>
+      <div class="spec-no">Exhibit · Print</div>
+      <h2 class="spec-title">Gazette of Glitches</h2>
+      <p class="spec-desc">An irregularly-published underground newspaper. Write a Letter to the Editor; receive a typeset reply set as a new article column, weather forecast included.</p>
+      <div class="spec-aspects"><span>newsprint</span><span>letters · replies</span><span>old standard</span></div>
+      <div class="spec-open">Open exhibit <span class="arrow">→</span></div>
+    </a>
+
+    <a class="specimen" href="04-support-reef/">
+      <div class="specimen-no">04</div>
+      <div class="preview reef">
+        <div class="fish f1"></div>
+        <div class="fish f2"></div>
+        <div class="fish f3"></div>
+        <div class="bub b1"></div>
+        <div class="bub b2"></div>
+        <div class="bub b3"></div>
+      </div>
+      <div class="spec-no">Exhibit · Habitat</div>
+      <h2 class="spec-title">Support Reef</h2>
+      <p class="spec-desc">A calm underwater ecosystem. Your message becomes a small fish that swims to the agent. They exchange bubbles. Resolved fish drift upward and are released to the surface.</p>
+      <div class="spec-aspects"><span>canvas · ambient</span><span>fish as tickets</span><span>fraunces</span></div>
+      <div class="spec-open">Open exhibit <span class="arrow">→</span></div>
+    </a>
+
+    <a class="specimen" href="05-pneumatic-post/">
+      <div class="specimen-no">05</div>
+      <div class="preview pneumatic">
+        <div class="pipe pipe-t"></div>
+        <div class="pipe pipe-b"></div>
+        <div class="pipe pipe-l"></div>
+        <div class="pipe pipe-r"></div>
+        <div class="telegram">
+          <div class="stamp">FORM 6-B — DESPATCH</div>
+          state the nature of the trouble — STOP — keep it brief — STOP
+        </div>
+        <div class="capsule"></div>
+      </div>
+      <div class="spec-no">Exhibit · Machinery</div>
+      <h2 class="spec-title">Pneumatic Post</h2>
+      <p class="spec-desc">A Victorian pneumatic tube service. Write a telegram; the brass capsule whooshes through the visible piping. A reply returns on sepia receipt paper, signed by a clerk.</p>
+      <div class="spec-aspects"><span>brass · walnut</span><span>capsule transit</span><span>im fell english</span></div>
+      <div class="spec-open">Open exhibit <span class="arrow">→</span></div>
+    </a>
+
+  </section>
+
+  <footer class="colophon">
+    <div>
+      <h3>The exhibit</h3>
+      Five sketches, not products. All five share one OpenRouter-hosted Qwen model on the back end;
+      each prototype hands it a different system prompt to bend its voice to that exhibit's
+      register. No backend, no database, no chat history beyond your session.
+    </div>
+    <div>
+      <h3>Source</h3>
+      <a href="https://github.com/robertbarcik/it-portals-anthology" target="_blank" rel="noopener">
+        github.com/robertbarcik/it-portals-anthology</a><br>
+      MIT license. Vanilla HTML/CSS/JS. No build step.
+    </div>
+    <div>
+      <h3>Curator</h3>
+      Robert Barcik, 2026.<br>
+      Part of <a href="https://publications.barcik.training/" target="_blank">publications.barcik.training</a>.
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

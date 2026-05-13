@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The IT Oracle — Cartomancy for the Network Age</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a class="back-link" href="../">← anthology</a>
+
+<div class="orrery">
+  <div class="star s1"></div><div class="star s2"></div><div class="star s3"></div>
+  <div class="star s4"></div><div class="star s5"></div><div class="star s6"></div>
+  <div class="moon"></div>
+  <div class="candle c1"><span></span></div>
+  <div class="candle c2"><span></span></div>
+</div>
+
+<main class="stage">
+
+  <header class="invocation">
+    <div class="ornament">✦ ◇ ✦</div>
+    <h1>The IT Oracle</h1>
+    <p class="tag">Cartomancy for the network age.<br>Speak your affliction. The cards shall answer.</p>
+  </header>
+
+  <section class="ritual">
+    <form id="askForm" class="ask">
+      <label for="affliction">Your affliction, in your own words.</label>
+      <textarea id="affliction" rows="2"
+                placeholder="my vpn refuses me · the printer haunts me · everything is slow today"></textarea>
+      <button type="submit" id="consult">
+        <span class="b-glyph">✶</span> Consult the Cards
+      </button>
+    </form>
+  </section>
+
+  <section class="spread" id="spread" hidden>
+    <div class="card-slot" data-slot="past">
+      <div class="slot-label">Of the past</div>
+      <div class="card" id="card-1"></div>
+    </div>
+    <div class="card-slot" data-slot="present">
+      <div class="slot-label">Of the present</div>
+      <div class="card" id="card-2"></div>
+    </div>
+    <div class="card-slot" data-slot="future">
+      <div class="slot-label">Of what shall pass</div>
+      <div class="card" id="card-3"></div>
+    </div>
+  </section>
+
+  <section class="reading" id="reading" hidden>
+    <div class="reading-frame">
+      <div class="reading-corner tl"></div><div class="reading-corner tr"></div>
+      <div class="reading-corner bl"></div><div class="reading-corner br"></div>
+      <h2>The Oracle Speaks</h2>
+      <div class="reading-text" id="readingText"></div>
+      <div class="reading-foot">
+        <button id="again" type="button">⟲ Ask Again</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-foot">
+  <a href="#" id="resetkey">change key</a>
+  <span>Set in Cormorant Garamond &amp; Cardo. The cards are an invention.</span>
+</footer>
+
+<script src="../shared/demo-key.js" onerror="void 0"></script>
+<script src="../shared/apikey.js"></script>
+<script src="../shared/llm.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

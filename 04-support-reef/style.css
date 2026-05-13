@@ -1,0 +1,181 @@
+:root {
+  --sea-top: #b9e8e0;
+  --sea-mid: #6cbcb5;
+  --sea-deep: #2e7f7e;
+  --sea-bottom: #1c4f5a;
+  --sand: #ecd9b5;
+  --coral: #ff8a7a;
+  --mint: #cfeee0;
+  --blush: #f6c2b4;
+  --ink: #133138;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; min-height: 100%;
+  background:
+    linear-gradient(180deg,
+      var(--sea-top) 0%,
+      var(--sea-mid) 35%,
+      var(--sea-deep) 75%,
+      var(--sea-bottom) 100%);
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.back-link {
+  position: fixed; top: 18px; left: 22px; z-index: 50;
+  font: 600 13px/1 'Nunito', sans-serif; letter-spacing: .04em;
+  color: var(--ink); text-decoration: none;
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(8px);
+  padding: 8px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.6);
+}
+.back-link:hover { background: rgba(255,255,255,.85); }
+
+canvas#reef {
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  z-index: 1;
+  display: block;
+}
+
+/* Caustic light shimmer overlay */
+.caustics {
+  position: fixed; inset: 0; pointer-events: none; z-index: 2;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(255,255,255,.25), transparent 50%),
+    radial-gradient(ellipse at 70% 10%, rgba(255,255,255,.18), transparent 55%);
+  mix-blend-mode: screen;
+  animation: shimmer 7s ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  0%   { transform: translate(0, 0) scale(1); opacity: .8; }
+  100% { transform: translate(-3%, 1%) scale(1.05); opacity: 1; }
+}
+
+.ui { position: relative; z-index: 5; pointer-events: none; }
+.ui > * { pointer-events: auto; }
+
+.reef-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 28px 32px;
+  background: linear-gradient(180deg, rgba(185,232,224,.6), transparent);
+}
+.reef-title h1 {
+  font: 500 italic 38px/1 'Fraunces', serif;
+  margin: 0 0 4px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.reef-title p {
+  font: 400 14px/1 'Nunito', sans-serif;
+  margin: 0; color: rgba(19,49,56,.7);
+}
+.reef-stats {
+  display: flex; gap: 18px; align-items: center;
+  font: 600 13px/1 'Nunito', sans-serif;
+  color: var(--ink);
+  background: rgba(255,255,255,.4);
+  border-radius: 999px;
+  padding: 10px 18px;
+  backdrop-filter: blur(8px);
+}
+.reef-stats em { font-style: normal; font-weight: 700; color: var(--coral); margin-right: 4px; }
+.reef-stats a { color: var(--ink); opacity: .55; font-size: 12px; text-decoration: underline; }
+.reef-stats a:hover { opacity: 1; }
+
+/* Speech bubbles overlay */
+.speeches {
+  position: fixed; inset: 0; pointer-events: none; z-index: 6;
+}
+.bubble {
+  position: absolute;
+  max-width: 280px;
+  padding: 12px 16px;
+  border-radius: 22px;
+  font: 500 14.5px/1.45 'Nunito', sans-serif;
+  color: var(--ink);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(19,49,56,.18);
+  transform: translate(-50%, -100%);
+  transition: opacity .6s ease, transform .8s cubic-bezier(.3,1,.4,1);
+  animation: bubble-in .55s cubic-bezier(.3,1.3,.4,1);
+}
+.bubble.user {
+  background: linear-gradient(160deg, var(--blush), #f9e0d5);
+  font-style: italic;
+}
+.bubble.agent {
+  background: linear-gradient(160deg, var(--mint), #e2f5e8);
+}
+.bubble::after {
+  content: ""; position: absolute; left: 50%; bottom: -8px;
+  width: 14px; height: 14px;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 3px;
+}
+.bubble.thinking { font-style: italic; opacity: .8; }
+@keyframes bubble-in {
+  from { opacity: 0; transform: translate(-50%, -90%) scale(.85); }
+  to   { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+}
+.bubble.fading { opacity: 0; transform: translate(-50%, -120%); }
+
+/* Composer at the bottom */
+.composer {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding: 22px 28px 28px;
+  background: linear-gradient(0deg, rgba(28,79,90,.85), rgba(28,79,90,.0));
+  display: flex; justify-content: center;
+}
+.composer-inner {
+  width: 100%; max-width: 720px;
+  background: rgba(255,255,255,.92);
+  border-radius: 22px;
+  padding: 16px 18px 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
+}
+.composer label {
+  font: italic 600 12px/1 'Fraunces', serif;
+  color: rgba(19,49,56,.7);
+  letter-spacing: .03em;
+}
+.composer-row { display: flex; gap: 10px; margin-top: 8px; }
+.composer input {
+  flex: 1; border: 0; outline: 0; background: transparent;
+  font: 500 17px/1 'Nunito', sans-serif;
+  color: var(--ink); padding: 10px 4px;
+  border-bottom: 1px solid rgba(19,49,56,.15);
+}
+.composer input:focus { border-color: var(--coral); }
+.composer button {
+  background: var(--coral); color: #fff;
+  border: 0; border-radius: 999px;
+  padding: 0 22px;
+  font: 700 14px/1 'Nunito', sans-serif;
+  cursor: pointer;
+  letter-spacing: .01em;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 6px 16px rgba(255,138,122,.45);
+  transition: transform .12s ease;
+}
+.composer button:hover { transform: translateY(-2px); }
+.composer button:disabled { opacity: .55; cursor: progress; }
+.send-glyph { font-size: 12px; }
+.hint {
+  margin: 8px 4px 0;
+  font: italic 12px/1.3 'Fraunces', serif;
+  color: rgba(19,49,56,.5);
+}
+
+@media (max-width: 600px) {
+  .reef-head { flex-direction: column; gap: 10px; padding: 18px 18px; }
+  .reef-stats { align-self: flex-start; }
+  .bubble { max-width: 70vw; font-size: 13.5px; }
+}

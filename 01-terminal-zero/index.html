@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TERMINAL ZERO — Service Desk, est. 1983</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Major+Mono+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a class="back-link" href="../">← anthology</a>
+
+<div class="bezel">
+  <div class="screen" id="screen">
+
+    <header class="hdr">
+      <div class="hdr-l">
+        <span class="led"></span>
+        <span>BELL LABS &nbsp;//&nbsp; VAX-9000 SERVICE DESK &nbsp;//&nbsp; rev. 3.2.1</span>
+      </div>
+      <div class="hdr-r" id="clock">--:--:--</div>
+    </header>
+
+    <main class="grid">
+
+      <section class="term" id="term">
+        <div id="boot" class="boot"></div>
+        <div id="log" class="log"></div>
+        <div class="prompt-row" id="promptRow" hidden>
+          <span class="ps1">SYSOP@VAX9000:~$&nbsp;</span>
+          <span class="input-wrap">
+            <input id="cmd" type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+                   spellcheck="false" />
+            <span class="caret"></span>
+          </span>
+        </div>
+      </section>
+
+      <aside class="kern">
+        <div class="kern-hdr">kern.log — /dev/console</div>
+        <div id="kern" class="kern-stream"></div>
+      </aside>
+
+    </main>
+
+    <footer class="ftr">
+      <span>F1 HELP &nbsp;·&nbsp; F2 STATUS &nbsp;·&nbsp; F3 NEW TICKET &nbsp;·&nbsp; F12 RESET KEY</span>
+      <span id="ftrR">~ AWAITING OPERATOR ~</span>
+    </footer>
+
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script src="../shared/demo-key.js" onerror="void 0"></script>
+<script src="../shared/apikey.js"></script>
+<script src="../shared/llm.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

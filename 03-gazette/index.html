@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Gazette of Glitches — Letters & Replies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tinos:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a class="back-link" href="../">← anthology</a>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="rule"></div>
+    <div class="strap">
+      <span id="vol">VOL. CCXLII · NO. 17</span>
+      <span id="dateline">TUESDAY — TWO PENCE</span>
+      <span>THE READER WRITES · THE EDITOR REPLIES</span>
+    </div>
+    <h1 class="title">The Gazette of Glitches</h1>
+    <div class="subtitle">PUBLISHED IRREGULARLY SINCE 1972 — AND ONLY WHEN THE TYPEWRITER WORKS</div>
+    <div class="bottombar">
+      <span>Today's Editor: <em id="editor">Mavis Croaker</em></span>
+      <span class="sep">◆</span>
+      <span id="weather">Weather: a mild outage in the East</span>
+      <span class="sep">◆</span>
+      <span>Press run: 41 copies, give or take</span>
+    </div>
+    <div class="rule"></div>
+  </header>
+
+  <main class="paper">
+
+    <aside class="lede">
+      <h2 class="kicker">A NOTE TO OUR DEAR READERS</h2>
+      <h3 class="hed">The Editor's Desk Is Open Once More</h3>
+      <p class="dropcap">A new edition is forthcoming and the Editor sits, as ever,
+      at the great oak desk by the window, awaiting your letters. Should your printer
+      have lost faith in <span class="sc">udp</span>, should your laptop have entered
+      a dark mood, write below — plainly, briefly — and a reply shall be set in type
+      forthwith.</p>
+      <p>The columns to the right shall be filled as the post arrives.</p>
+      <p class="sig">— <em>The Management</em></p>
+    </aside>
+
+    <section class="letters" id="letters">
+      <!-- dynamic letter+reply blocks land here -->
+    </section>
+
+  </main>
+
+  <section class="postbox">
+    <div class="postbox-inner">
+      <h3>To the Editor</h3>
+      <p class="postbox-help">A few short lines, please. The Editor reads everything.</p>
+      <textarea id="letter" placeholder="Dear Sir or Madam, my Wi-Fi has begun to behave with deliberate malice…"></textarea>
+      <div class="postbox-row">
+        <input id="signer" type="text" placeholder="— Yours faithfully, R. of Bratislava" />
+        <button id="send" type="button">Post to the Editor</button>
+      </div>
+    </div>
+    <div class="ink-blot" aria-hidden="true"></div>
+  </section>
+
+  <footer class="colophon">
+    <span>Set in Old Standard, Tinos & Special Elite.</span>
+    <span>Printed at the corner of Bottlewright St.</span>
+    <a href="#" id="newkey">change key</a>
+  </footer>
+
+</div>
+
+<script src="../shared/demo-key.js" onerror="void 0"></script>
+<script src="../shared/apikey.js"></script>
+<script src="../shared/llm.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
